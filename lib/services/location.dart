@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-class Location extends StatelessWidget {
+class Location {
   //Location({@required this.latitude, @required this.longitude});
 
   double latitude;
@@ -16,10 +16,5 @@ class Location extends StatelessWidget {
     } catch (e) {
       print(e);
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
