@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 class Location {
-  //Location({@required this.latitude, @required this.longitude});
-
   double latitude;
   double longitude;
 
