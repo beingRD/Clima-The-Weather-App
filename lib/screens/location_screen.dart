@@ -18,10 +18,14 @@ class _LocationScreenState extends State<LocationScreen> {
   void initState() {
     super.initState();
 
-    var temp = widget.locationWeather['main']['temp'];
+    updateUI(widget.locationWeather);
+  }
+
+  updateUI(dynamic weatherData) {
+    var temp = weatherData['main']['temp'];
     temperature = temp.toInt();
-    weatherConditionNumber = widget.locationWeather['weather'][0]['id'];
-    cityName = widget.locationWeather['name'];
+    weatherConditionNumber = weatherData['weather'][0]['id'];
+    cityName = weatherData['name'];
   }
 
   @override
