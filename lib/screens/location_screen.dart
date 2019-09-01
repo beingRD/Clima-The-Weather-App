@@ -25,14 +25,22 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   updateUI(dynamic weatherData) {
-    var temp = weatherData['main']['temp'];
-    temperature = temp.toInt();
-    message = weather.getMessage(temperature);
+    setState(() {
+      if (weatherData == null) {
+        temperature = 0;
+        message = 'Unable to load Data';
+        weatherIcon = 'Erorr';
+        return;
+      }
+      var temp = weatherData['main']['temp'];
+      temperature = temp.toInt();
+      message = weather.getMessage(temperature);
 
-    int weatherConditionNumber = weatherData['weather'][0]['id'];
-    weatherIcon = weather.getWeatherIcon(weatherConditionNumber);
+      int weatherConditionNumber = weatherData['weather'][0]['id'];
+      weatherIcon = weather.getWeatherIcon(weatherConditionNumber);
 
-    cityName = weatherData['name'];
+      cityName = weatherData['name'];
+    });
   }
 
   @override
@@ -57,7 +65,10 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      var weatherData = await weather.getLocationWeather();
+                      updateUI(weatherData);
+                    },
                     child: Icon(
                       Icons.near_me,
                       size: 50.0,
@@ -90,7 +101,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "$message in $cityName!",
+                  '$message in $cityName!',
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
